@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/TopDown/Scenes/MainScene.unity
+    path: Assets/Metaverse/Scenes/MainScene.unity
+    guid: 313b09842b94ad84789bd99b1e55477e
+  - enabled: 1
+    path: Assets/FlappyPlane/Scenes/GameScene1.unity
+    guid: de40b3a1ad10e4c47a15b92bca3721b3
+  - enabled: 1
+    path: Assets/TheStack/Scenes/GameScene2.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/TopDown/Scenes/GameScene3.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
