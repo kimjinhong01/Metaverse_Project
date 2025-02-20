@@ -16,6 +16,7 @@ namespace Metaverse
             camera = Camera.main;
             uiManager = FindObjectOfType<UIManager>();
             isStop = false;
+            Time.timeScale = 1.0f;
         }
 
         protected override void HandleAction()
