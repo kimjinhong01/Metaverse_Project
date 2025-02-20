@@ -1,37 +1,37 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace TopDown
+namespace Metaverse
 {
-    public class GameOverUI : BaseUI
+    public class TheStackUI : BaseUI
     {
-        [SerializeField] private Button restartButton;
+        [SerializeField] private Button startButton;
         [SerializeField] private Button exitButton;
 
         public override void Init(UIManager uiManager)
         {
             base.Init(uiManager);
-            restartButton.onClick.AddListener(OnClickRestartButton);
+            startButton.onClick.AddListener(OnClickStartButton);
             exitButton.onClick.AddListener(OnClickExitButton);
         }
 
-        public void OnClickRestartButton()
+        public void OnClickStartButton()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene(2);
         }
 
         public void OnClickExitButton()
         {
-            SceneManager.LoadScene(0);
+            this.gameObject.SetActive(false);
+            player.isStop = false;
         }
 
         protected override UIState GetUIState()
         {
-            return UIState.GameOver;
+            return UIState.TheStack;
         }
     }
 }

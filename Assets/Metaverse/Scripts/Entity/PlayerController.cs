@@ -7,18 +7,25 @@ namespace Metaverse
     public class PlayerController : BaseController
     {
         private Camera camera;
+        private UIManager uiManager;
+        public bool isStop;
 
         protected override void Start()
         {
             base.Start();
             camera = Camera.main;
+            uiManager = FindObjectOfType<UIManager>();
+            isStop = false;
         }
 
         protected override void HandleAction()
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertial = Input.GetAxisRaw("Vertical");
-            movementDirection = new Vector2(horizontal, vertial).normalized;
+            if (!isStop)
+                movementDirection = new Vector2(horizontal, vertial).normalized;
+            else
+                movementDirection = Vector2.zero;
 
             Vector2 mousePosition = Input.mousePosition;
             Vector2 worldPos = camera.ScreenToWorldPoint(mousePosition);
@@ -31,6 +38,23 @@ namespace Metaverse
             else
             {
                 lookDirection = lookDirection.normalized;
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            isStop = true;
+            if (collision.CompareTag("FlappPlane"))
+            {
+                uiManager.ChangeState(UIState.FlappyPlane);
+            }
+            else if (collision.CompareTag("TheStack"))
+            {
+                uiManager.ChangeState(UIState.TheStack);
+            }
+            else if (collision.CompareTag("TopDown"))
+            {
+                uiManager.ChangeState(UIState.TopDown);
             }
         }
     }

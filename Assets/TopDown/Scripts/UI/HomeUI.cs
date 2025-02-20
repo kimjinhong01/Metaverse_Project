@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace TopDown
@@ -24,7 +25,7 @@ namespace TopDown
 
         public void OnClickExitButton()
         {
-            Application.Quit();
+            SceneManager.LoadScene(0);
         }
 
         protected override UIState GetUIState()
