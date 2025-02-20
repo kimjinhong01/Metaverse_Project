@@ -56,6 +56,18 @@ namespace Metaverse
             {
                 uiManager.ChangeState(UIState.TopDown);
             }
+            else if (collision.CompareTag("MyShield"))
+            {
+                uiManager.ChangeState(UIState.MyShield);
+            }
+            else if (collision.CompareTag("RtanRain"))
+            {
+                uiManager.ChangeState(UIState.RtanRain);
+            }
+            else if (collision.CompareTag("FindRtan"))
+            {
+                uiManager.ChangeState(UIState.FindRtan);
+            }
         }
     }
 }

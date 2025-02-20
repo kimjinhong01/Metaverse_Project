@@ -8,7 +8,10 @@ namespace Metaverse
     {
         FlappyPlane,
         TheStack,
-        TopDown
+        TopDown,
+        MyShield,
+        RtanRain,
+        FindRtan
     }
 
     public class UIManager : MonoBehaviour
@@ -16,6 +19,9 @@ namespace Metaverse
         FlappyPlaneUI flappyPlaneUI;
         TheStackUI theStackUI;
         TopDownUI topDownUI;
+        MyShieldUI myShieldUI;
+        RtanRainUI rtanRainUI;
+        FindRtanUI findRtanUI;
         private UIState currentState;
 
         private void Awake()
@@ -26,6 +32,12 @@ namespace Metaverse
             theStackUI.Init(this);
             topDownUI = GetComponentInChildren<TopDownUI>(true);
             topDownUI.Init(this);
+            myShieldUI = GetComponentInChildren<MyShieldUI>(true);
+            myShieldUI.Init(this);
+            rtanRainUI = GetComponentInChildren<RtanRainUI>(true);
+            rtanRainUI.Init(this);
+            findRtanUI = GetComponentInChildren<FindRtanUI>(true);
+            findRtanUI.Init(this);
         }
 
         public void ChangeState(UIState state)
@@ -34,6 +46,9 @@ namespace Metaverse
             flappyPlaneUI.SetActive(currentState);
             theStackUI.SetActive(currentState);
             topDownUI.SetActive(currentState);
+            myShieldUI.SetActive(currentState);
+            rtanRainUI.SetActive(currentState);
+            findRtanUI.SetActive(currentState);
         }
     }
 }

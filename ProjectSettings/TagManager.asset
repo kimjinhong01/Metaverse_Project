@@ -8,6 +8,9 @@ TagManager:
   - FlappPlane
   - TheStack
   - TopDown
+  - MyShield
+  - RtanRain
+  - FindRtan
   layers:
   - Default
   - TransparentFX
