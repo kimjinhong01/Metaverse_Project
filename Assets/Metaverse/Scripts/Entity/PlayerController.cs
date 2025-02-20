@@ -17,6 +17,7 @@ namespace Metaverse
             uiManager = FindObjectOfType<UIManager>();
             isStop = false;
             Time.timeScale = 1.0f;
+            Screen.SetResolution(1920, 1080, true);
         }
 
         protected override void HandleAction()
