@@ -6,8 +6,8 @@ namespace FlappyPlane
 {
     public class Player : MonoBehaviour
     {
-        Animator animator;
-        Rigidbody2D _rigidbody;
+        Animator animator = null;
+        Rigidbody2D _rigidbody = null;
 
         public float flapForce = 6f;
         public float forwardSpeed = 3f;
@@ -18,34 +18,36 @@ namespace FlappyPlane
 
         public bool godMode = false;
 
-        GameManager gameManager;
+        GameManager gameManager = null;
 
-        // Start is called before the first frame update
         void Start()
         {
             gameManager = GameManager.instance;
 
-            animator = GetComponentInChildren<Animator>();
-            _rigidbody = GetComponent<Rigidbody2D>();
+            animator = transform.GetComponentInChildren<Animator>();
+            _rigidbody = transform.GetComponent<Rigidbody2D>();
 
             if (animator == null)
+            {
                 Debug.LogError("Not Founded Animator");
+            }
 
             if (_rigidbody == null)
+            {
                 Debug.LogError("Not Founded Rigidbody");
+            }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (isDead)
             {
                 if (deathCooldown <= 0)
                 {
-                    // 게임 재시작
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                     {
-                        gameManager.RestartGame();
+                        // 게임 재시작
+                        //gameManager.RestartGame();
                     }
                 }
                 else
@@ -62,9 +64,10 @@ namespace FlappyPlane
             }
         }
 
-        private void FixedUpdate()
+        public void FixedUpdate()
         {
-            if (isDead) return;
+            if (isDead)
+                return;
 
             Vector3 velocity = _rigidbody.velocity;
             velocity.x = forwardSpeed;
@@ -78,19 +81,21 @@ namespace FlappyPlane
             _rigidbody.velocity = velocity;
 
             float angle = Mathf.Clamp((_rigidbody.velocity.y * 10f), -90, 90);
-            transform.rotation = Quaternion.Euler(0, 0, angle);
+            float lerpAngle = Mathf.Lerp(_rigidbody.velocity.y, angle, Time.deltaTime * 5f);
+            transform.rotation = Quaternion.Euler(0, 0, lerpAngle);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void OnCollisionEnter2D(Collision2D collision)
         {
-            if (godMode) return;
+            if (godMode)
+                return;
 
-            if (isDead) return;
-
-            isDead = true;
-            deathCooldown = 1f;
+            if (isDead)
+                return;
 
             animator.SetInteger("IsDie", 1);
+            isDead = true;
+            deathCooldown = 1f;
             gameManager.GameOver();
         }
     }

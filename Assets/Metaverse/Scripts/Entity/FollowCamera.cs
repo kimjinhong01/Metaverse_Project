@@ -6,15 +6,28 @@ namespace Metaverse
 {
     public class FollowCamera : MonoBehaviour
     {
-        public Transform target;
+        [SerializeField]
+        Transform target;
+        [SerializeField]
         Vector3 offsetVec;
+
+        [SerializeField]
+        Vector2 center;
+        [SerializeField]
+        Vector2 mapSize;
+
+        [SerializeField]
+        float cameraMoveSpeed;
+        float height;
+        float width;
 
         void Start()
         {
             if (target == null)
                 return;
 
-            offsetVec = new Vector3(0, 0, -10);
+            height = Camera.main.orthographicSize;
+            width = height * Screen.width / Screen.height;
         }
 
         void Update()
@@ -22,9 +35,29 @@ namespace Metaverse
             if (target == null)
                 return;
 
-            Vector3 pos = transform.position;
-            pos = target.position + offsetVec;
-            transform.position = Vector3.Lerp(transform.position, pos, Time.deltaTime * 2f);
+            LimitCameraArea();
+        }
+
+        void LimitCameraArea()
+        {
+            transform.position = Vector3.Lerp(
+                transform.position,
+                target.position + offsetVec,
+                Time.deltaTime * cameraMoveSpeed);
+
+            float lx = mapSize.x - width;
+            float clampX = Mathf.Clamp(transform.position.x, -lx + center.x, lx + center.x);
+
+            float ly = mapSize.y - height;
+            float clampY = Mathf.Clamp(transform.position.y, -ly + center.y, ly + center.y);
+
+            transform.position = new Vector3(clampX, clampY, offsetVec.z);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(center, mapSize * 2);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +9,19 @@ namespace FlappyPlane
     public class GameManager : MonoBehaviour
     {
         static GameManager gameManager;
-        public static GameManager instance { get { return gameManager; } }
+
+        public static GameManager instance
+        {
+            get { return gameManager; }
+        }
 
         private int currentScore = 0;
-
         UIManager uiManager;
 
-        public UIManager UIManager { get { return uiManager; } }
-
+        public UIManager UIManager
+        {
+            get { return uiManager; }
+        }
         private void Awake()
         {
             gameManager = this;
@@ -41,8 +47,9 @@ namespace FlappyPlane
         public void AddScore(int score)
         {
             currentScore += score;
-            Debug.Log("Score: " + currentScore);
             uiManager.UpdateScore(currentScore);
+            Debug.Log("Score: " + currentScore);
         }
+
     }
 }
